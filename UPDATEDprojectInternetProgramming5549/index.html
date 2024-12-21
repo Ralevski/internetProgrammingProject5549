@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TerraPal - Environmental Impact Tracking</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>    
+</head>
+
+<body class="font-sans antialiased">
+
+    <section class="hero bg-green-800 text-white text-center py-20">
+        <div class="container mx-auto px-4">
+            <h1 class="text-5xl font-extrabold mb-8 text-green-400">
+                TerraPal
+            </h1>
+            <p class="text-lg">Explore data, take action, and join the movement to reduce pollution.</p>
+            <div class="mt-8">
+                <a href="#calculator" class="bg-white text-green-800 px-6 py-3 rounded-lg shadow-md hover:bg-gray-200">Get Started</a>
+            </div>
+        </div>
+    </section>
+
+    <main class="container mx-auto px-4 pt-12">
+
+
+        <section id="calculator" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8 text-green-800">Ecological Footprint Calculator</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <form id="eco-calculator" class="space-y-4">
+                        <div>
+                            <label class="block mb-2 text-gray-700">Transportation (km/week)</label>
+                            <input type="number" id="transportation" class="w-full p-2 border rounded" placeholder="Enter Kilometers">
+                        </div>
+                        <div>
+                            <label class="block mb-2 text-gray-700">Energy Usage (kWh/month)</label>
+                            <input type="number" id="energy" class="w-full p-2 border rounded" placeholder="Enter kWh">
+                        </div>
+                        <div>
+                            <label class="block mb-2 text-gray-700">Waste Production (kg/week)</label>
+                            <input type="number" id="waste" class="w-full p-2 border rounded" placeholder="Enter Kilograms">
+                        </div>
+                    </form>
+                </div>
+                <div class="bg-green-50 rounded-lg p-6 text-center">
+                    <h3 class="text-2xl font-semibold mb-4">Your Environmental Impact</h3>
+                    <div class="text-5xl font-bold text-green-700 mb-4" id="impact-score">0.0</div>
+                    <p id="impact-feedback" class="text-gray-600">Enter your data to calculate your impact.</p>
+                    <div class="mt-6">
+                        <h4 class="font-semibold mb-2">Suggested Actions:</h4>
+                        <ul id="suggested-actions" class="text-left list-disc list-inside text-sm text-gray-700">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pollution-map" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8 text-green-800">Live Pollution Map</h2>
+            <div id="map-container" class="h-96 rounded-lg overflow-hidden shadow-md"></div>
+        </section>
+
+        <section id="news" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8 text-green-800">Environmental News</h2>
+            <div id="news-feed" class="grid md:grid-cols-3 gap-6">
+            </div>
+        </section>
+
+        
+        
+</section>
+
+<section id="educational-resources" class="mb-16">
+    <h2 class="text-3xl font-bold text-center mb-8 text-green-800">Environmental Education</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-xl font-semibold mb-4">Air Pollution</h3>
+            <p class="text-gray-600 mb-4">Learn about the sources, impacts, and solutions to air pollution.</p>
+            <a href="airPollution.html" class="text-green-600 hover:underline">Explore More</a>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-xl font-semibold mb-4">Water Contamination</h3>
+            <p class="text-gray-600 mb-4">Understand the effects of water pollution on ecosystems and human health.</p>
+            <a href="waterContamination.html" class="text-green-600 hover:underline">Learn Now</a>
+        </div>
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h3 class="text-xl font-semibold mb-4">Sustainable Practices</h3>
+            <p class="text-gray-600 mb-4">Discover practical ways to reduce your environmental footprint.</p>
+            <a href="sustainablePractices.html" class="text-green-600 hover:underline">Get Tips</a>
+        </div>
+    </div>
+</section>
+    </main>
+    <section id="pollution-report" class="mb-16">
+        <h2 class="text-3xl font-bold text-center mb-8 text-green-800">Report Pollution in Your Area</h2>
+        <div class="max-w-4xl mx-auto p-6 bg-gray-100 rounded-lg shadow-md">
+            <form id="pollution-form" class="space-y-4">
+                <div>
+                    <label for="pollution-type" class="block mb-2 text-gray-700">Pollution Type</label>
+                    <select id="pollution-type" class="w-full p-2 border rounded">
+                        <option value="Air">Air</option>
+                        <option value="Water">Water</option>
+                        <option value="Soil">Soil</option>
+                        <option value="Waste">Waste</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="pollution-location" class="block mb-2 text-gray-700">Location</label>
+                    <input type="text" id="pollution-location" class="w-full p-2 border rounded" placeholder="Enter location">
+                </div>
+                <div>
+                    <label for="pollution-severity" class="block mb-2 text-gray-700">Severity Level</label>
+                    <select id="pollution-severity" class="w-full p-2 border rounded">
+                        <option value="Low">Low</option>
+                        <option value="Moderate">Moderate</option>
+                        <option value="High">High</option>
+                        <option value="Critical">Critical</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="pollution-photo" class="block mb-2 text-gray-700">Upload Photo (for proof of the report)</label>
+                    <input type="file" id="pollution-photo" class="w-full p-2 border rounded" accept="image/*">
+                </div>
+                <div>
+                    <label for="pollution-description" class="block mb-2 text-gray-700">Description of the Pollution</label>
+                    <textarea id="pollution-description" class="w-full p-2 border rounded" rows="4" placeholder="Provide more details about the pollution"></textarea>
+                </div>
+                <div>
+                    <button type="button" id="detect-location" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 mb-4">Auto-Detect Location</button>
+                </div>
+                <button type="button" id="submit-report" class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">Submit Report</button>
+            </form>
+            <div id="success-message" class="mt-4 text-center text-green-600 hidden">Report Submitted</div>
+        </div>
+    </section>
+    
+    <script>
+        document.getElementById('submit-report').addEventListener('click', function() {
+
+            const successMessage = document.getElementById('success-message');
+            successMessage.classList.remove('hidden');
+            
+            successMessage.classList.add('fade');
+            
+            document.getElementById('pollution-form').reset();
+            
+            document.getElementById('pollution-photo').value = '';
+            
+            setTimeout(function() {
+                successMessage.classList.add('hidden');
+                successMessage.classList.remove('fade');
+            }, 2500); 
+        });
+    
+        document.getElementById('detect-location').addEventListener('click', function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+                    
+                    const location = `Lat: ${latitude}, Long: ${longitude}`;
+                    document.getElementById('pollution-location').value = location;
+                }, function(error) {
+                    alert('Unable to detect your location. Please enter it manually.');
+                });
+            } else {
+                alert('Geolocation is not supported by this browser.');
+            }
+        });
+    </script>
+    <section id="donation-section" class=" py-16 px-4">
+        <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8">
+             <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-gray-800">Support Our Platform</h2>
+                <p class="text-lg text-gray-600 mt-2">Your support helps us to continue our mission and make a lasting impact.</p>
+            </div>
+    
+<div id="donation-steps" class="flex justify-center items-center">
+    <div id="step-1" class="donation-card bg-white p-8 rounded-xl shadow-xl max-w-sm w-full">
+        <h5 class="text-lg font-semibold text-green-700 mb-6 text-center">Your generosity can make a difference, would you be interested in donating?</h5>
+        <div class="flex justify-around gap-4">
+         <button id="donate-yes" class="bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 transition duration-300">Yes</button>
+        <button id="donate-no" class="bg-gray-300 text-gray-700 py-2 px-6 rounded-lg hover:bg-gray-400 transition duration-300">No</button>        </div>
+    </div>
+</div>
+
+
+                <div id="step-2" class="donation-card hidden">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">How much would you like to donate?</h3>
+                    <input type="number" id="donation-amount" class="w-full p-4 text-xl border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Enter amount" min="1" required>
+                    <div id="amount-error" class="text-red-500 text-sm hidden mt-2">Please enter a valid amount greater than 0.</div>
+                    <div class="flex justify-between gap-8 mt-6">
+                        <button type="button" id="back-to-step-1" class="bg-gray-400 text-white py-3 px-6 rounded-lg hover:bg-gray-500 transition">Back</button>
+                        <button type="button" id="next-to-step-3" class="bg-green-600 text-white py-3 px-6 rounded-lg hover:bg-indigo-700 transition">Next</button>
+                    </div>
+                </div>
+    
+                <div id="step-3" class="donation-card hidden">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Leave a message (optional)</h3>
+                    <textarea id="donation-message" class="w-full p-4 text-lg border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" rows="4" placeholder="Write your message"></textarea>
+                    <div class="flex justify-center gap-8 mt-6">
+                        <button type="button" id="submit-donation" class="bg-green-600 text-white py-3 px-8 rounded-lg hover:bg-indigo-700 transition">Submit Donation</button>
+                    </div>
+                </div>
+            </div>
+    
+            <div id="donation-success-message" class="mt-6 text-center text-green-600 hidden">
+                <p class="font-semibold">Thank you for your generous donation!</p>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+
+document.getElementById('donate-yes').addEventListener('click', function() {
+            document.getElementById('step-1').classList.add('hidden');
+            document.getElementById('step-2').classList.remove('hidden');
+        });
+    
+        document.getElementById('donate-no').addEventListener('click', function() {
+            alert('Thank you for considering supporting us!');
+        });
+    
+        document.getElementById('back-to-step-1').addEventListener('click', function() {
+            document.getElementById('step-2').classList.add('hidden');
+            document.getElementById('step-1').classList.remove('hidden');
+        });
+    
+        document.getElementById('next-to-step-3').addEventListener('click', function() {
+            const amount = document.getElementById('donation-amount').value;
+    
+            if (!amount || parseFloat(amount) <= 0) {
+                document.getElementById('amount-error').classList.remove('hidden');
+                return;
+            }
+    
+            document.getElementById('step-2').classList.add('hidden');
+            document.getElementById('step-3').classList.remove('hidden');
+        });
+    
+        document.getElementById('submit-donation').addEventListener('click', function() {
+            document.getElementById('donation-success-message').classList.remove('hidden');
+            document.getElementById('step-3').classList.add('hidden');
+    
+            setTimeout(function() {
+                document.getElementById('donation-success-message').classList.add('hidden');
+                document.getElementById('step-1').classList.remove('hidden');
+                document.getElementById('step-2').classList.add('hidden');
+                document.getElementById('step-3').classList.add('hidden');
+                document.getElementById('donation-amount').value = '';
+                document.getElementById('donation-message').value = '';
+            }, 2500);
+        });
+    </script>
+    
+    <style>
+        .donation-card {
+            background-color: #fff;
+            padding: 24px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+    
+        .donation-card:hover {
+            transform: translateY(-5px);
+        }
+    
+        .hidden {
+            display: none;
+        }
+    
+        button:hover {
+            transform: scale(1.05);
+        }
+    </style>
+    
+        
+    
+    
+
+    <footer class="bg-green-900 text-white py-12 mt-16">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-5xl font-extrabold mb-8 text-green-400">
+                TerraPal
+            </h1>
+    
+            <div class="mb-8">
+                <h4 class="text-xl font-semibold mb-4">About TerraPal</h4>
+                <p class="text-gray-300">TerraPal empowers individuals to understand and reduce their environmental impact through data-driven insights. We are committed to helping the planet, one action at a time.</p>
+            </div>
+    
+            <div>
+                <h4 class="text-xl font-semibold mb-4">Contact & Credits</h4>
+                <p class="text-gray-300">Email: <a href="mailto:ralevski@yahoo.com" class="hover:text-green-300">ralevski@yahoo.com</a></p>
+                <p class="text-gray-400">© <span id="current-year"></span> TerraPal. All rights reserved.</p>
+                <div class="mt-4">
+                    <a href="https://www.linkedin.com/in/kristijan-ralevski-439983193/" target="_blank" class="inline-block">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn" class="w-8 h-8 hover:opacity-80">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+
+    <script src="scripts.js"></script>
+    
+</body>
+</html>
